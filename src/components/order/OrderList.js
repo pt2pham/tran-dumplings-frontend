@@ -1,7 +1,14 @@
 import React, { Component } from 'react'
 import { API_URL, ORDER } from '../../config/Api'
 import { TopHeader } from '../Header'
-import { Icon, Menu, Table } from 'semantic-ui-react'
+import {
+  Button,
+  Icon,
+  Menu,
+  Table,
+  TableCell,
+  TableHeaderCell
+} from 'semantic-ui-react'
 
 export default class OrdersList extends Component {
   state = {
@@ -18,6 +25,8 @@ export default class OrdersList extends Component {
   renderHeader() {
     return (
       <Table.Header>
+        <Table.HeaderCell></Table.HeaderCell>
+        <Table.HeaderCell>Date</Table.HeaderCell>
         <Table.HeaderCell>Name</Table.HeaderCell>
         <Table.HeaderCell>Dumpling Type</Table.HeaderCell>
         <Table.HeaderCell>Quantity</Table.HeaderCell>
@@ -38,7 +47,7 @@ export default class OrdersList extends Component {
     return (
       <Table.Footer>
         <Table.Row>
-          <Table.HeaderCell colSpan='4'>
+          <Table.HeaderCell colSpan='6'>
             <Menu floated='right' pagination>
               <Menu.Item as='a' icon>
                 <Icon name='chevron left' />
@@ -75,9 +84,17 @@ export default class OrdersList extends Component {
 const Order = ({ item }) => {
   return (
     <Table.Row>
+      <Table.Cell width='1'>
+        <Button.Group>
+          <Button negative>Decline</Button>
+          <Button.Or />
+          <Button positive>Approve</Button>
+        </Button.Group>
+      </Table.Cell>
+      <Table.Cell>{item.date || 'January 7th, 2018'}</Table.Cell>
       <Table.Cell>{item.first_name} {item.last_name}</Table.Cell>
       <Table.Cell>{item.dumpling_type}</Table.Cell>
-      <Table.Cell>{item.quantity}</Table.Cell>
+      <Table.Cell width='1'>{item.quantity}</Table.Cell>
       <Table.Cell>{item.special_instructions}</Table.Cell>
     </Table.Row>
   );
